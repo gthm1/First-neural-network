@@ -20,14 +20,14 @@ class NeuralNetwork(object):
         #
         # Note: in Python, you can define a function with a lambda expression,
         # as shown below.
-        self.activation_function = lambda x : 1.0/(1.0+np.exp(-x))  # Replace 0 with your sigmoid calculation.
+        self.activation_function = lambda x : 1.0/(1.0 + np.exp(-x))  # Replace 0 with your sigmoid calculation.
         
         ### If the lambda code above is not something you're familiar with,
         # You can uncomment out the following three lines and put your 
         # implementation there instead.
         #
         #def sigmoid(x):
-        #    return 0  # Replace 0 with your sigmoid calculation here
+         #   return 0  # Replace 0 with your sigmoid calculation here
         #self.activation_function = sigmoid
                     
 
@@ -46,9 +46,9 @@ class NeuralNetwork(object):
         delta_weights_h_o = np.zeros(self.weights_hidden_to_output.shape)
         for X, y in zip(features, targets):
             
-            final_outputs, hidden_outputs = self.forward_pass_train(np.array(X))  # Implement the forward pass function below
+            final_outputs, hidden_outputs = self.forward_pass_train(X)  # Implement the forward pass function below
             # Implement the backproagation function below
-            delta_weights_i_h, delta_weights_h_o = self.backpropagation(final_outputs, hidden_outputs, np.array(X),np.array(y), 
+            delta_weights_i_h, delta_weights_h_o = self.backpropagation(final_outputs, hidden_outputs, X,y, 
                                                                         delta_weights_i_h, delta_weights_h_o)
         self.update_weights(delta_weights_i_h, delta_weights_h_o, n_records)
 
@@ -91,10 +91,10 @@ class NeuralNetwork(object):
         error = y - final_outputs # Output layer error is the difference between desired target and actual output.
         
         # TODO: Calculate the hidden layer's contribution to the error
-        hidden_error = np.dot(error , self.weights_hidden_to_output.T)
+        hidden_error = np.dot(output_error_term, self.weights_hidden_to_output)
         
         # TODO: Backpropagated error terms - Replace these values with your calculations.
-        output_error_term = error * (final_outputs) * (1 - final_outputs)
+        output_error_term = error * 1
         
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
         
